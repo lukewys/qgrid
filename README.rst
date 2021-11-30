@@ -14,14 +14,6 @@ filtering controls, as well as edit your DataFrames by double clicking cells.
 Qgrid was developed for use in `Quantopian's hosted research environment
 <https://www.quantopian.com/posts/qgrid-now-available-in-research-an-interactive-grid-for-sorting-and-filtering-dataframes?utm_source=github&utm_medium=web&utm_campaign=qgrid-repo>`_
 and is available for use in that environment as of June 2018.
-Quantopian also offers a `fully managed service for professionals <https://factset.quantopian.com>`_
-that includes Qgrid, Zipline, Alphalens, Pyfolio, FactSet data, and more.
-
-Announcements: Qgrid Webinar
-----------------------------
-Qgrid author Tim Shawver recently did a live webinar about Qgrid, and the recording of the webinar is `now available on YouTube <https://www.youtube.com/watch?v=AsJJpgwIX0Q>`_.
-
-This talk will be interesting both for people that are new to Qgrid, as well as longtime fans that are interested in learning more about the project.
 
 Demo
 ----
@@ -86,7 +78,7 @@ If you haven't already install jupyterlab and enabled ipywidgets, do that first 
 
 Install the qgrid-jupyterlab extension and enable::
 
-  jupyter labextension install qgrid2
+  jupyter labextension install qgrid
 
 At this point if you run jupyter lab normally with the 'jupyter lab' command, you should be
 able to use qgrid in notebooks as you normally would.
@@ -98,10 +90,10 @@ with a newer version of either dependency.*
 What's New
 ----------
 **Column-specific options (as of 1.1.0)**:
-Thanks to a significant `PR from the community <https://github.com/quantopian/qgrid/pull/191>`_, Qgrid users now have the ability to set a number of options on a per column basis.  This allows you to do things like explicitly specify which column should be sortable, editable, etc.  For example, if you wanted to prevent editing on all columns except for a column named `'A'`, you could do the following::
+Thanks to a significant `PR from the community <https://github.com/quantopian/qgrid/pull/191>`_, Qgrid users now have the ability to set a number of options on a per column basis.  This allows you to do things like explicitly specify which column should be sortable, filterable, editable, etc.  For example, if you wanted to prevent filtering on all columns except for a column named `'A'`, you could do the following::
 
-    col_opts = { 'editable': False }
-    col_defs = { 'A': { 'editable': True } }
+    col_opts = { 'filterable': False }
+    col_defs = { 'A': { 'filterable': True } }
     qgrid.show_grid(df, column_options=col_opts, column_definitions=col_defs)
 
 See the updated `show_grid <https://qgrid.readthedocs.io/en/v1.1.0/#qgrid.show_grid>`_ documentation for more information.
@@ -111,16 +103,15 @@ This feature can be thought of as the first row-specific option that qgrid suppo
 
     def can_edit_row(row):
         return row['status'] == 'active'
-
+        
     qgrid.show_grid(df, row_edit_callback=can_edit_row)
 
 **New API methods for dynamically updating an existing qgrid widget (as of 1.1.0)**:
 Adds the following new methods, which can be used to update the state of an existing Qgrid widget without having to call `show_grid` to completely rebuild the widget:
 
-    - `edit_cell <https://qgrid.readthedocs.io/en/latest/#qgrid.QgridWidget.edit_cell>`_
-    - `change_selection <https://qgrid.readthedocs.io/en/latest/#qgrid.QgridWidget.change_selection>`_
-    - `toggle_editable <https://qgrid.readthedocs.io/en/latest/#qgrid.QgridWidget.toggle_editable>`_
-    - `change_grid_option <https://qgrid.readthedocs.io/en/latest/#qgrid.QgridWidget.change_grid_option>`_ (experimental)
+    - `change_selection <https://qgrid.readthedocs.io/en/v1.1.0/#qgrid.QgridWidget.change_selection>`_
+    - `toggle_editable <https://qgrid.readthedocs.io/en/v1.1.0/#qgrid.QgridWidget.toggle_editable>`_
+    - `change_grid_option <https://qgrid.readthedocs.io/en/v1.1.0/#qgrid.QgridWidget.change_grid_option>`_ (experimental)
 
 **Improved MultiIndex Support (as of 1.0.6-beta.6)**:
 Qgrid now displays multi-indexed DataFrames with some of the index cells merged for readability, as is normally done when viewing DataFrames as a static html table.  The following image shows qgrid displaying a multi-indexed DataFrame that was returned from Quantopian's `Pipeline API <https://www.quantopian.com/tutorials/pipeline?utm_source=github&utm_medium=web&utm_campaign=qgrid-repo>`_:
@@ -214,10 +205,6 @@ to do this.
 
     jupyter nbextension install --py --symlink --sys-prefix qgrid && jupyter nbextension enable --py --sys-prefix qgrid
 
-#. If desired, install the labextension::
-
-    jupyter labextension link js/
-
 #. Run the notebook as you normally would with the following command::
 
     jupyter notebook
@@ -250,7 +237,7 @@ you open the ``index.html`` file in your browser, you should be able to preview 
 
 Events API
 ----------
-As of qgrid 1.0.3 there are new ``on`` and ``off`` methods in qgrid which can be used to attach/detach event handlers. They're available on both the ``qgrid`` module (see `qgrid.on <https://qgrid.readthedocs.io/en/latest/#qgrid.on>`_), and on individual QgridWidget instances (see `qgrid.QgridWidget.on <https://qgrid.readthedocs.io/en/latest/#qgrid.QgridWidget.on>`_). Previously the only way to listen for events was to use undocumented parts of the API.
+As of qgrid 1.0.3 there are new ``on`` and ``off`` methods in qgrid which can be used to attach/detach event handlers. They're available on both the ``qgrid`` module (see `qgrid.on <https://qgrid.readthedocs.io/en/latest/#qgrid.on>`_), and on individual QgridWidget instances (see `qgrid.QgridWidget.on <https://qgrid.readthedocs.io/en/latest/#qgrid.QgridWidget.on>`_). Previously the only way to listen for events was to use undocumented parts of the API.  
 
 Having the ability to attach event handlers allows us to do some interesting things in terms of using qgrid in conjunction with other widgets/visualizations. One example is using qgrid to filter a DataFrame that's also being displayed by another visualization.
 

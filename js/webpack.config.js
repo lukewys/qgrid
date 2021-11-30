@@ -42,8 +42,7 @@ module.exports = [
             path: path.resolve(__dirname, '..', 'qgrid', 'static'),
             libraryTarget: 'amd'
         },
-        plugins: plugins,
-        mode: 'production'
+        plugins: plugins
     },
     {// Bundle for the notebook containing the custom widget views and models
      //
@@ -62,8 +61,7 @@ module.exports = [
             rules: rules
         },
         externals: ['@jupyter-widgets/base', '@jupyter-widgets/controls', 'base/js/dialog'],
-        plugins: plugins,
-        mode: 'production'
+        plugins: plugins
     },
     {// Embeddable qgrid bundle
      //
@@ -91,7 +89,6 @@ module.exports = [
             rules: rules
         },
         externals: ['@jupyter-widgets/base', '@jupyter-widgets/controls'],
-        plugins: plugins,
-        mode: 'production'
+        plugins: plugins
     }
 ];

@@ -134,15 +134,6 @@ def package_files(directory):
 
 data_files = package_files('qgrid/static')
 
-
-def extras_require():
-    return {
-        "test": [
-            "pytest>=2.8.5",
-            "flake8>=3.6.0"
-        ],
-    }
-
 setup_args = {
     'name': 'qgrid',
     'version': version_ns['__version__'],
@@ -153,7 +144,6 @@ setup_args = {
         ('share/jupyter/nbextensions/qgrid', data_files),
     ],
     'install_requires': reqs,
-    'extras_require': extras_require(),
     'packages': find_packages(),
     'zip_safe': False,
     'cmdclass': {
@@ -164,9 +154,8 @@ setup_args = {
     },
 
     'author': 'Quantopian Inc.',
-    'author_email': 'opensource@quantopian.com',
+    'author_email': 'tshawver@quantopian.com',
     'url': 'https://github.com/quantopian/qgrid',
-    'license': 'Apache-2.0',
     'keywords': [
         'ipython',
         'jupyter',
